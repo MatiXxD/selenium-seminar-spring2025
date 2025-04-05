@@ -8,7 +8,7 @@ from conftest import URLS
 
 from ui.pages.login_page import LoginPage
 from ui.pages.search_page import SearchPeoplePage
-from ui.pages.schedule_page import SchedulePage
+from ui.pages.schedule_page import SchedulePage, ScheduleInterval
 
 class BaseCase:
     driver: WebDriver
@@ -66,12 +66,12 @@ class TestLK(BaseCase):
 
     def test_find_people(self, request):
         request.getfixturevalue("setup_people_search")
-        found = self.search_people_page.find_people(self.PEOPLE_QUERY)
-        assert((self.PEOPLE_SEARCH_TARGET_NAME, self.PEOPLE_SEARCH_TARGET_GROUP) in found)
+        found = self.search_people_page.find_people(TestLK.PEOPLE_QUERY)
+        assert((self.PEOPLE_SEARCH_TARGET_NAME, TestLK.PEOPLE_SEARCH_TARGET_GROUP) in found)
 
     def test_schedule(self, request):
         request.getfixturevalue("setup_schedule")
-        self.schedule_page.select_interval("semester")
+        self.schedule_page.select_interval(ScheduleInterval.SEMESTER.value)
         self.schedule_page.select_subject("Обеспечение качества в разработке ПО")
         schedule = self.schedule_page.get_subjects()
         assert self.SCHEDULE_SUBJ_NAME in schedule.keys()
