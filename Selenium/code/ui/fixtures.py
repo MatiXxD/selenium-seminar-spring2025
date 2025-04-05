@@ -14,8 +14,6 @@ def driver(config):
     selenoid = config['selenoid']
     vnc = config['vnc']
     options = Options()
-    # if config['headless']:
-    #     options.add_argument('--headless')
     if selenoid:
         capabilities = {
             'browserName': 'chrome',
